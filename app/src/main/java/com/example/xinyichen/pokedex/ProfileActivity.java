@@ -77,20 +77,6 @@ public class ProfileActivity extends AppCompatActivity {
             }
         });
 
-
-t
-
-
-
-
-
-
-
-
-        //that name will be used to access the picture on the
-
-
-
     }
 
     //https://tutorialwing.com/android-glide-library-tutorial-example/ glide library tutorial
