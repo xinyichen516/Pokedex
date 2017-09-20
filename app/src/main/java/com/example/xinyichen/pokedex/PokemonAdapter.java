@@ -9,6 +9,8 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+
 import java.util.ArrayList;
 
 /**
@@ -36,11 +38,12 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.CustomVi
 
     @Override
     public void onBindViewHolder(CustomViewHolder holder, int position) {
-        Pokedex.Pokemon company = pokemonList.get(position);
-        holder.name.setText(company.companyName);
-        holder.img.setImageResource(company.imageResId);
-        holder.rating.setRating(company.likeCompany);
-        holder.
+        Pokedex.Pokemon pokemon = pokemonList.get(position);
+        holder.pName.setText(pokemon.name);
+
+        //Glide.with(this).load("http://assets.pokemon.com/assets/cms2/img/pokedex/full/"+ pokemon.number + ".png").into(R.id.pokemonImage);
+        //holder.pImg.setImageResource();
+        holder.pNumber.setText(pokemon.number);
             /*@Override
             public void onClick(View v) {
             Intent intent = new INtent(context, MainActivity.class);
@@ -54,32 +57,21 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.CustomVi
 
     @Override
     public int getItemCount() {
-        return companiesList.size();
+        return pokemonList.size();
     }
 
-    //TODO Question 8
-    //Create a CustomViewHolder class that extends the base RecyclerView.ViewHolder
-    //Override its constructor class with the following signature:
-    //CustomViewHolder(View view) {
-    //    super(view);
-    //    ...
-    //}
-    //and create instance variables for the UI elements in the layout file
-    //Hint: findViewById is a method of the View class
-
-    /* YOUR CODE HERE */
 
     class CustomViewHolder extends RecyclerView.ViewHolder {
 
-        RatingBar rating;
-        ImageView img;
-        TextView name;
+        TextView pNumber;
+        ImageView pImg;
+        TextView pName;
 
         CustomViewHolder(View view) {
             super(view);
-            this.name = (TextView) view.findViewById(R.id.companyName);
-            this.rating = (RatingBar) view.findViewById(R.id.companyRating);
-            this.img = (ImageView) view.findViewById(R.id.companyPic);
+            this.pName = (TextView) view.findViewById(R.id.pokemonName);
+            this.pNumber = (TextView) view.findViewById(R.id.pokemonNumber);
+            this.pImg = (ImageView) view.findViewById(R.id.pokemonImage);
         }
 
     }

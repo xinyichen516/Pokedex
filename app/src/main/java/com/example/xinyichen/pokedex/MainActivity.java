@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
 
         RecyclerView rView = (RecyclerView) findViewById(R.id.recyclerView);
 
-        rView.setLayoutManager(new LinearLayoutManager(this);
+        rView.setLayoutManager(new LinearLayoutManager(this));
         Pokedex pokedex = new Pokedex();
 
         ArrayList<Pokedex.Pokemon> pokemonList = pokedex.getPokemon();
