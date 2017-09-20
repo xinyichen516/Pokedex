@@ -18,16 +18,15 @@ import java.util.ArrayList;
 public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.CustomViewHolder>{
     Context context;
     ArrayList<Pokedex.Pokemon> pokemonList = new ArrayList<>();
-    Pokedex pokedex = new Pokedex();
 
-    public PokedexAdapter(Context context, ArrayList<Pokedex.Pokemon> companies) {
+    public PokemonAdapter(Context context, ArrayList<Pokedex.Pokemon> pokemons) {
         this.context = context;
-        this.companiesList = new ArrayList<Company>(companies);
+        this.pokemonList = new ArrayList<Pokedex.Pokemon>(pokemons);
     }
 
     @Override
-    public CompaniesAdapter.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.row_views, parent, false);
+    public PokemonAdapter.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pokemon_result, parent, false);
         return new CustomViewHolder(view);
     }
     //TODO Question 6
@@ -37,10 +36,11 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.CustomVi
 
     @Override
     public void onBindViewHolder(CustomViewHolder holder, int position) {
-        Company company = companiesList.get(position);
+        Pokedex.Pokemon company = pokemonList.get(position);
         holder.name.setText(company.companyName);
         holder.img.setImageResource(company.imageResId);
         holder.rating.setRating(company.likeCompany);
+        holder.
             /*@Override
             public void onClick(View v) {
             Intent intent = new INtent(context, MainActivity.class);
