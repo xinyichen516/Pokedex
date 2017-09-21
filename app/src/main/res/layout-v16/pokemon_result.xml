@@ -29,14 +29,19 @@
             android:id="@+id/pokemonName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:text="pName"
             android:textAppearance="@android:style/TextAppearance.Material.Title"
-            app:layout_constraintHorizontal_bias="0.501"
+            tools:ignore="HardcodedText,NewApi"
+            android:layout_marginLeft="8dp"
             app:layout_constraintLeft_toLeftOf="parent"
-            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintRight_toLeftOf="@+id/pokemonImage"
+            android:layout_marginRight="8dp"
+            app:layout_constraintHorizontal_bias="0.72"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="HardcodedText,NewApi" />
+            android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp"
+            app:layout_constraintVertical_bias="0.106"/>
 
         <ImageView
             android:id="@+id/pokemonImage"
