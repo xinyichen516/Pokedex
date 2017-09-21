@@ -6,12 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+
+import static android.support.v7.recyclerview.R.styleable.RecyclerView;
 
 /**
  * Created by xinyichen on 9/19/17.
@@ -41,14 +42,13 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.CustomVi
         Pokedex.Pokemon pokemon = pokemonList.get(position);
         holder.pName.setText(pokemon.name);
 
+        Glide.with(holder.pImg.getContext())
+                .load("http://assets.pokemon.com/assets/cms2/img/pokedex/full/" + pokemon.number + ".png" )
+                .into(holder.pImg);
+
         //Glide.with(this).load("http://assets.pokemon.com/assets/cms2/img/pokedex/full/"+ pokemon.number + ".png").into(R.id.pokemonImage);
         //holder.pImg.setImageResource();
-        holder.pNumber.setText(pokemon.number);
-            /*@Override
-            public void onClick(View v) {
-            Intent intent = new INtent(context, MainActivity.class);
-            Intent.putExtra(Name)
-            }*/
+        holder.pNumber.setText("#" + pokemon.number);
     }
 
 
