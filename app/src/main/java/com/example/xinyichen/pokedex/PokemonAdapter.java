@@ -49,8 +49,8 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.CustomVi
         //Glide.with(this).load("http://assets.pokemon.com/assets/cms2/img/pokedex/full/"+ pokemon.number + ".png").into(R.id.pokemonImage);
         //holder.pImg.setImageResource();
         holder.pNumber.setText("#" + pokemon.number);
+        holder.type.setText(pokemon.species);
     }
-
 
     //TODO Question 7
     //Override the item size method
@@ -66,12 +66,14 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.CustomVi
         TextView pNumber;
         ImageView pImg;
         TextView pName;
+        TextView type;
 
         CustomViewHolder(View view) {
             super(view);
             this.pName = (TextView) view.findViewById(R.id.pokemonName);
             this.pNumber = (TextView) view.findViewById(R.id.pokemonNumber);
             this.pImg = (ImageView) view.findViewById(R.id.pokemonImage);
+            this.type = (TextView) view.findViewById(R.id.pType);
         }
 
     }
