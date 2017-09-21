@@ -2,6 +2,7 @@ package com.example.xinyichen.pokedex;
 
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -40,6 +41,7 @@ public class Pokedex {
         String defense;
         String hp;
         String species;
+        ArrayList<String> types;
 
         public Pokemon(String name, JSONObject jsonData) {
             try {
@@ -49,6 +51,21 @@ public class Pokedex {
                 defense = jsonData.getString("Defense").trim();
                 hp = jsonData.getString("HP").trim();
                 species = jsonData.getString("Species").trim();
+                types = new ArrayList<>();
+                try {
+
+                    JSONArray jr = new JSONArray(jsonData.getString("Type"));
+                    JSONObject jb = (JSONObject)jr.getJSONObject(0);
+                    JSONArray st = jb.getJSONArray("Type");
+                    for(int i=0;i<st.length();i++)
+                    {
+                        String type = st.getString(i);
+                        types.add(type);
+                    }
+                }catch(Exception e)
+                {
+                    e.printStackTrace();
+                }
 
             } catch (JSONException e) {
                 Log.i("JSON error", "error parsing json data");
