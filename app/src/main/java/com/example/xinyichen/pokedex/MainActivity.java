@@ -1,12 +1,17 @@
 package com.example.xinyichen.pokedex;
 
 import android.support.design.widget.FloatingActionButton;
+import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.example.xinyichen.pokedex.Pokedex.Pokemon;
@@ -16,20 +21,21 @@ import java.util.ArrayList;
 import static com.example.xinyichen.pokedex.R.id.fButton;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
-    //selects wether the layout is linear or not
-    static boolean linearLayout = true;
-
+    //selects whether the layout is linear or not
+    boolean linearLayout = true;
+    Toolbar toolbar;
     RecyclerView rView;
+    ArrayList<Pokedex.Pokemon> pokemonList;
+    PokemonAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        Toolbar myToolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(myToolbar);
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         rView = (RecyclerView) findViewById(R.id.recyclerView);
 
@@ -40,9 +46,7 @@ public class MainActivity extends AppCompatActivity {
         FloatingActionButton layoutButton = (FloatingActionButton) findViewById(R.id.fButton);
 
         //change the layout and icon when the button is clicked
-        layoutButton.setOnClickListener(new View.OnClickListener()
-
-        {
+        layoutButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v)
             {
@@ -57,22 +61,41 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        pokemonList = pokedex.getPokemon();
 
-
-
-        ArrayList<Pokedex.Pokemon> pokemonList = pokedex.getPokemon();
-
-
-        //TODO Question 3
-        //set the adapter using the constructor
-        RecyclerView.Adapter adapter = new PokemonAdapter(getApplicationContext(), pokemonList);
+        adapter = new PokemonAdapter(getApplicationContext(), pokemonList);
         rView.setAdapter(adapter);
-
-        //TODO Question 3.5??
-        //guided row_view layout
 
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.options_menu, menu);
+        MenuItem menuItem = menu.findItem(R.id.action_search);
+        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
+        searchView.setOnQueryTextListener(this);
+        return true;
+    }
 
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        newText = newText.toLowerCase();
+        ArrayList<Pokemon> pokemonArrayList = new ArrayList<>();
+        for (Pokemon p : pokemonList) {
+            String name = p.name.toLowerCase();
+            if (name.contains(newText)) {
+                pokemonArrayList.add(p);
+            }
+        }
+        adapter.setFilter(pokemonArrayList);
+        return false;
+    }
 }

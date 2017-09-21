@@ -27,33 +27,26 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.CustomVi
         this.pokemonList = new ArrayList<Pokedex.Pokemon>(pokemons);
     }
 
+    void setFilter(ArrayList<Pokedex.Pokemon> pokemons) {
+        ArrayList<Pokedex.Pokemon> pList = new ArrayList<>();
+        pList.addAll(pokemons);
+        notifyDataSetChanged();
+    }
+
     @Override
     public PokemonAdapter.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pokemon_result, parent, false);
         return new CustomViewHolder(view);
     }
-    //TODO Question 6
-    //Bind the data to the holder based on the position
-
-    /* YOUR CODE HERE */
 
     @Override
     public void onBindViewHolder(CustomViewHolder holder, int position) {
         Pokedex.Pokemon pokemon = pokemonList.get(position);
         holder.pName.setText(pokemon.name);
-
-        Glide.with(holder.pImg.getContext())
-                .load("http://assets.pokemon.com/assets/cms2/img/pokedex/full/" + pokemon.number + ".png" )
-                .into(holder.pImg);
-
-        //Glide.with(this).load("http://assets.pokemon.com/assets/cms2/img/pokedex/full/"+ pokemon.number + ".png").into(R.id.pokemonImage);
-        //holder.pImg.setImageResource();
+        Glide.with(holder.pImg.getContext()).load("http://assets.pokemon.com/assets/cms2/img/pokedex/full/" + pokemon.number + ".png" ).into(holder.pImg);
         holder.pNumber.setText("#" + pokemon.number);
         holder.type.setText(pokemon.species);
     }
-
-    //TODO Question 7
-    //Override the item size method
 
     @Override
     public int getItemCount() {
