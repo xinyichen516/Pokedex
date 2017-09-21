@@ -1,5 +1,6 @@
 package com.example.xinyichen.pokedex;
 
+import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -21,7 +22,7 @@ import java.util.ArrayList;
 import static com.example.xinyichen.pokedex.R.id.fButton;
 
 
-public class MainActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
+public class MainActivity extends AppCompatActivity implements android.support.v7.widget.SearchView.OnQueryTextListener{
 
     //selects whether the layout is linear or not
     boolean linearLayout = true;
@@ -73,10 +74,13 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu, menu);
-        MenuItem menuItem = menu.findItem(R.id.action_search);
-        SearchView searchView = (SearchView) MenuItemCompat.getActionView(menuItem);
-        searchView.setOnQueryTextListener(this);
-        return true;
+
+        MenuItem searchItem = menu.findItem(R.id.action_search);
+       /* SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
+        if (searchView != null) {
+            searchView.setOnQueryTextListener(this);
+        } */
+        return super.onCreateOptionsMenu(menu);
     }
 
 
@@ -97,5 +101,24 @@ public class MainActivity extends AppCompatActivity implements SearchView.OnQuer
         }
         adapter.setFilter(pokemonArrayList);
         return false;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.action_search:
+                // User chose the "Settings" item, show the app settings UI...
+                return true;
+
+            case R.id.filterButton:
+                Intent intent = new Intent(getApplicationContext(), AdvancedSearch.class);
+                startActivity(intent);
+
+            default:
+                // If we got here, the user's action was not recognized.
+                // Invoke the superclass to handle it.
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }
