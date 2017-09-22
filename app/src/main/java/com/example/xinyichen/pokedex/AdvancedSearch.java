@@ -38,9 +38,8 @@ public class AdvancedSearch extends AppCompatActivity {
             stateVO.setSelected(false);
             checkmarkList.add(stateVO);
         }
-        SpinnerAdapter myAdapter = new SpinnerAdapter(AdvancedSearch.this, 0, checkmarkList);
+        final SpinnerAdapter myAdapter = new SpinnerAdapter(AdvancedSearch.this, 0, checkmarkList);
         spinner.setAdapter(myAdapter);
-
 
         final TextView minHealthP = (TextView) findViewById(R.id.hPointsVal);
         final TextView minAttackP = (TextView) findViewById(R.id.aPointsVal);
@@ -99,7 +98,7 @@ public class AdvancedSearch extends AppCompatActivity {
         startFilter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ArrayList<String> types = filterTypes(checkmarkList);
+                ArrayList<String> types = myAdapter.getList();
                 String hP = minHealthP.getText().toString().split(" ")[0];
                 String aP = minAttackP.getText().toString().split(" ")[0];
                 String dP = minDefenseP.getText().toString().split(" ")[0];

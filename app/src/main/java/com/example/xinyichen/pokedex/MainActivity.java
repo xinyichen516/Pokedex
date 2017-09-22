@@ -1,6 +1,7 @@
 package com.example.xinyichen.pokedex;
 
 import android.content.Intent;
+import android.os.Handler;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.view.MenuItemCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -30,11 +31,11 @@ public class MainActivity extends AppCompatActivity implements android.support.v
     RecyclerView rView;
     ArrayList<Pokedex.Pokemon> pokemonList;
     PokemonAdapter adapter;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);

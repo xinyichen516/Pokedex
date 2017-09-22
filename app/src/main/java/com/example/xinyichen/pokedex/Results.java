@@ -37,7 +37,7 @@ public class Results extends AppCompatActivity implements SearchView.OnQueryText
 
         Intent intent = getIntent();
 
-        String[] types = intent.getStringArrayExtra("types");
+        ArrayList<String> types = intent.getStringArrayListExtra("types");
         String HP = intent.getStringExtra("HP");
         String AP = intent.getStringExtra("AP");
         String DP = intent.getStringExtra("DP");
@@ -75,9 +75,8 @@ public class Results extends AppCompatActivity implements SearchView.OnQueryText
         });
 
         pokemonList = pokedex.getPokemon();
-        ArrayList<Pokemon> filteredPokemonList = filterPokemons(pokemonList, types, HP, AP, DP);
 
-        pokemonList = filteredPokemonList;
+        pokemonList = filterPokemons(pokemonList, types, HP, AP, DP);
 
 
         adapter = new PokemonAdapter(getApplicationContext(), pokemonList);
@@ -133,23 +132,21 @@ public class Results extends AppCompatActivity implements SearchView.OnQueryText
         }
     }
 
-    public ArrayList<Pokemon> filterPokemons (ArrayList<Pokemon> pokeList, String[] types, String HP, String AP, String DP) {
+    public ArrayList<Pokemon> filterPokemons (ArrayList<Pokemon> pokeList, ArrayList<String> typeList, String HP, String AP, String DP) {
         ArrayList<Pokemon> results = new ArrayList<>();
         int health = Integer.parseInt(HP);
         int attack = Integer.parseInt(AP);
         int defense = Integer.parseInt(DP);
         for (int i = 0; i < pokeList.size(); i++){
             Pokemon currPokemon = pokeList.get(i);
-            if (types == null) {
-                for (String type:currPokemon.types) {
-                    if (Integer.parseInt(currPokemon.hp) >= health && Integer.parseInt(currPokemon.attack) > attack && Integer.parseInt(currPokemon.defense) >= defense) {
-                        results.add(currPokemon);
-                    }
+            if (typeList == null) {
+                if (Integer.parseInt(currPokemon.hp) >= health && Integer.parseInt(currPokemon.attack) > attack && Integer.parseInt(currPokemon.defense) >= defense) {
+                    results.add(currPokemon);
                 }
             } else {
                 for (String type:currPokemon.types) {
-                    for (int j = 0; j < types.length; j++) {
-                        if (type.equals(types[j]) && Integer.parseInt(currPokemon.hp) >= health && Integer.parseInt(currPokemon.attack) > attack && Integer.parseInt(currPokemon.defense) >= defense) {
+                    for (String listTypes : typeList) {
+                        if (listTypes.equals(type) && Integer.parseInt(currPokemon.hp) >= health && Integer.parseInt(currPokemon.attack) > attack && Integer.parseInt(currPokemon.defense) >= defense) {
                             results.add(currPokemon);
                         }
                     }

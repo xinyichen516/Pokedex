@@ -12,4 +12,5 @@
     <string name="minimum_defense_points">Minimum Defense Points</string>
     <string name="minimum_health_points">Minimum Health Points</string>
     <string name="pokemon_type">Pokemon Type</string>
+    <string name="select_pokemon_type" />
 </resources>

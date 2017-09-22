@@ -5,8 +5,8 @@ package com.example.xinyichen.pokedex;
  */
 
 public class SpinnerCheck {
-    private String title;
-    private boolean selected;
+    String title;
+    boolean selected;
 
     public String getTitle() {
         return title;

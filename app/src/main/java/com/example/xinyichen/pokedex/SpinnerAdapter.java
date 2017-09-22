@@ -46,7 +46,7 @@ public class SpinnerAdapter extends ArrayAdapter<SpinnerCheck> {
         final ViewHolder holder;
         if (convertView == null) {
             LayoutInflater layoutInflator = LayoutInflater.from(mContext);
-            convertView = layoutInflator.inflate(R.layout.spinner_layout, null);
+            convertView = layoutInflator.inflate(R.layout.spin_layout, null);
             holder = new ViewHolder();
             holder.mTextView = (TextView) convertView
                     .findViewById(R.id.text);
@@ -71,13 +71,26 @@ public class SpinnerAdapter extends ArrayAdapter<SpinnerCheck> {
         }
         holder.mCheckBox.setTag(position);
         holder.mCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 int getPosition = (Integer) buttonView.getTag();
+                if (isChecked) {
+                    listState.get(getPosition).setSelected(isChecked);
+                } else {
+                    listState.get(getPosition).setSelected(false);
+                }
             }
         });
         return convertView;
+    }
+
+    public ArrayList<String> getList() {
+        ArrayList<String> temp = new ArrayList<>();
+        for (SpinnerCheck x : listState) {
+            if (x.isSelected()) {
+                temp.add(x.getTitle());
+            }
+        } return temp;
     }
 
     private class ViewHolder {
