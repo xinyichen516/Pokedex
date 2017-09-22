@@ -59,7 +59,7 @@ public class SpinnerAdapter extends ArrayAdapter<SpinnerCheck> {
 
         holder.mTextView.setText(listState.get(position).getTitle());
 
-        // To check weather checked event fire from getview() or user input
+        // To check whether checked event fire from getview() or user input
         isFromView = true;
         holder.mCheckBox.setChecked(listState.get(position).isSelected());
         isFromView = false;
@@ -75,8 +75,6 @@ public class SpinnerAdapter extends ArrayAdapter<SpinnerCheck> {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 int getPosition = (Integer) buttonView.getTag();
-
-
             }
         });
         return convertView;

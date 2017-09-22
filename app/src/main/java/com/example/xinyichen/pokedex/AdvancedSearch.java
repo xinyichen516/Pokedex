@@ -38,9 +38,9 @@ public class AdvancedSearch extends AppCompatActivity {
             stateVO.setSelected(false);
             checkmarkList.add(stateVO);
         }
-        SpinnerAdapter myAdapter = new SpinnerAdapter(AdvancedSearch.this, 0,
-                checkmarkList);
+        SpinnerAdapter myAdapter = new SpinnerAdapter(AdvancedSearch.this, 0, checkmarkList);
         spinner.setAdapter(myAdapter);
+
 
         final TextView minHealthP = (TextView) findViewById(R.id.hPointsVal);
         final TextView minAttackP = (TextView) findViewById(R.id.aPointsVal);
