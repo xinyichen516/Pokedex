@@ -19,6 +19,7 @@ import com.example.xinyichen.pokedex.Pokedex.Pokemon;
 import com.example.xinyichen.pokedex.Pokedex;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 
 public class Results extends AppCompatActivity implements SearchView.OnQueryTextListener{
@@ -41,6 +42,7 @@ public class Results extends AppCompatActivity implements SearchView.OnQueryText
         String HP = intent.getStringExtra("HP");
         String AP = intent.getStringExtra("AP");
         String DP = intent.getStringExtra("DP");
+        String random = intent.getStringExtra("Random");
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -76,7 +78,7 @@ public class Results extends AppCompatActivity implements SearchView.OnQueryText
 
         pokemonList = pokedex.getPokemon();
 
-        pokemonList = filterPokemons(pokemonList, types, HP, AP, DP);
+        pokemonList = filterPokemons(pokemonList, types, HP, AP, DP, random);
 
 
         adapter = new PokemonAdapter(getApplicationContext(), pokemonList);
@@ -132,11 +134,17 @@ public class Results extends AppCompatActivity implements SearchView.OnQueryText
         }
     }
 
-    public ArrayList<Pokemon> filterPokemons (ArrayList<Pokemon> pokeList, ArrayList<String> typeList, String HP, String AP, String DP) {
+    public ArrayList<Pokemon> filterPokemons (ArrayList<Pokemon> pokeList, ArrayList<String> typeList, String HP, String AP, String DP, String random) {
         ArrayList<Pokemon> results = new ArrayList<>();
         int health = Integer.parseInt(HP);
         int attack = Integer.parseInt(AP);
         int defense = Integer.parseInt(DP);
+        if (random.equals("true")) {
+            Collections.shuffle(pokemonList);
+            for (int i = 0; i < 20; i++) {
+                results.add(pokemonList.get(i));
+            } return results;
+        }
         for (int i = 0; i < pokeList.size(); i++){
             Pokemon currPokemon = pokeList.get(i);
             if (typeList == null) {

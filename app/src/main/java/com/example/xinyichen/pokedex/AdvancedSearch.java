@@ -107,6 +107,22 @@ public class AdvancedSearch extends AppCompatActivity {
                 myIntent.putExtra("HP", hP);
                 myIntent.putExtra("AP", aP);
                 myIntent.putExtra("DP", dP);
+                myIntent.putExtra("Random", "false");
+                startActivity(myIntent);
+            }
+        });
+
+        ImageButton randomFilter = (ImageButton) findViewById(R.id.randomButton);
+        randomFilter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ArrayList<String> types = null;
+                Intent myIntent = new Intent(getApplicationContext(), Results.class);
+                myIntent.putExtra("types", types);
+                myIntent.putExtra("HP", "0");
+                myIntent.putExtra("AP", "0");
+                myIntent.putExtra("DP", "0");
+                myIntent.putExtra("Random", "true");
                 startActivity(myIntent);
             }
         });
@@ -114,14 +130,14 @@ public class AdvancedSearch extends AppCompatActivity {
 
     }
 
-    public ArrayList<String> filterTypes(ArrayList<SpinnerCheck> checkmarkList) {
+    /* public ArrayList<String> filterTypes(ArrayList<SpinnerCheck> checkmarkList) {
         ArrayList<String> types = new ArrayList<>();
         for (int i = 0; i < checkmarkList.size(); i++) {
             if (checkmarkList.get(i).isSelected()) {
                 types.add(checkmarkList.get(i).getTitle());
             }
         } return types;
-    }
+    } */
 
 
 }
