@@ -53,7 +53,6 @@ public class Pokedex {
                 species = jsonData.getString("Species").trim();
                 types = new ArrayList<>();
                 try {
-
                     JSONArray jr = new JSONArray(jsonData.getString("Type").trim());
                     for(int i=0;i<jr.length();i++)
                     {

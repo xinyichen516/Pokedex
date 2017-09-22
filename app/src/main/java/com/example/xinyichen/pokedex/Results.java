@@ -21,7 +21,7 @@ import com.example.xinyichen.pokedex.Pokedex;
 import java.util.ArrayList;
 
 
-public class MainActivityResults extends AppCompatActivity implements SearchView.OnQueryTextListener{
+public class Results extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     //selects whether the layout is linear or not
     boolean linearLayout = true;
@@ -64,10 +64,10 @@ public class MainActivityResults extends AppCompatActivity implements SearchView
             public void onClick(View v)
             {
                 if(linearLayout){
-                    rView.setLayoutManager(new LinearLayoutManager(MainActivityResults.this));
+                    rView.setLayoutManager(new LinearLayoutManager(Results.this));
                     linearLayout = false;
                 } else{
-                    rView.setLayoutManager(new GridLayoutManager(MainActivityResults.this, 2));
+                    rView.setLayoutManager(new GridLayoutManager(Results.this, 2));
                     linearLayout = true;
                 }
 
@@ -135,12 +135,23 @@ public class MainActivityResults extends AppCompatActivity implements SearchView
 
     public ArrayList<Pokemon> filterPokemons (ArrayList<Pokemon> pokeList, String[] types, String HP, String AP, String DP) {
         ArrayList<Pokemon> results = new ArrayList<>();
+        int health = Integer.parseInt(HP);
+        int attack = Integer.parseInt(AP);
+        int defense = Integer.parseInt(DP);
         for (int i = 0; i < pokeList.size(); i++){
             Pokemon currPokemon = pokeList.get(i);
-            for (String type:currPokemon.types) {
-                for (int j = 0; j < types.length; j++) {
-                    if (type.equals(types[j]) && HP.equals(currPokemon.hp) && AP.equals(currPokemon.attack) && DP.equals(currPokemon.defense)) {
+            if (types == null) {
+                for (String type:currPokemon.types) {
+                    if (Integer.parseInt(currPokemon.hp) >= health && Integer.parseInt(currPokemon.attack) > attack && Integer.parseInt(currPokemon.defense) >= defense) {
                         results.add(currPokemon);
+                    }
+                }
+            } else {
+                for (String type:currPokemon.types) {
+                    for (int j = 0; j < types.length; j++) {
+                        if (type.equals(types[j]) && Integer.parseInt(currPokemon.hp) >= health && Integer.parseInt(currPokemon.attack) > attack && Integer.parseInt(currPokemon.defense) >= defense) {
+                            results.add(currPokemon);
+                        }
                     }
                 }
             }

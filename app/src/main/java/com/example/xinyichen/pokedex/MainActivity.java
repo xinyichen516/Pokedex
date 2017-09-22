@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -19,8 +20,6 @@ import com.example.xinyichen.pokedex.Pokedex.Pokemon;
 
 import java.util.ArrayList;
 
-import static com.example.xinyichen.pokedex.R.id.fButton;
-import static java.sql.Types.NULL;
 
 
 public class MainActivity extends AppCompatActivity implements android.support.v7.widget.SearchView.OnQueryTextListener{
@@ -80,10 +79,6 @@ public class MainActivity extends AppCompatActivity implements android.support.v
         inflater.inflate(R.menu.options_menu, menu);
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
-        /* SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        if (searchView != null) {
-            searchView.setOnQueryTextListener(this);
-        } */
         return super.onCreateOptionsMenu(menu);
     }
 

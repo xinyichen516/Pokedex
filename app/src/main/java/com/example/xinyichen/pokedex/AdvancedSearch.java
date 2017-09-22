@@ -22,9 +22,9 @@ public class AdvancedSearch extends AppCompatActivity {
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayShowTitleEnabled(false);
-
         toolbar.setTitle("");
         toolbar.setSubtitle("");
+
         String[] select_type = {"Select Type(s)", "Normal", "Water", "Fire", "Grass", "Ice", "Electric",
                 "Fighting", "Poison", "Flying", "Ground", "Bug", "Psychic", "Rock", "Dark", "Ghost", "Dragon", "Steel", "Fairy"};
 
@@ -103,12 +103,12 @@ public class AdvancedSearch extends AppCompatActivity {
                 String hP = minHealthP.getText().toString().split(" ")[0];
                 String aP = minAttackP.getText().toString().split(" ")[0];
                 String dP = minDefenseP.getText().toString().split(" ")[0];
-                Intent intent = new Intent(getApplicationContext(), MainActivityResults.class);
-                intent.putExtra("types", types);
-                intent.putExtra("HP", hP);
-                intent.putExtra("AP", aP);
-                intent.putExtra("DP", dP);
-                startActivity(intent);
+                Intent myIntent = new Intent(getApplicationContext(), Results.class);
+                myIntent.putExtra("types", types);
+                myIntent.putExtra("HP", hP);
+                myIntent.putExtra("AP", aP);
+                myIntent.putExtra("DP", dP);
+                startActivity(myIntent);
             }
         });
 

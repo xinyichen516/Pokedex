@@ -19,7 +19,8 @@
             </intent-filter>
         </activity>
         <activity android:name=".AdvancedSearch" />
-        <activity android:name=".StartScreen"></activity>
+        <activity android:name=".StartScreen" />
+        <activity android:name=".Results"></activity>
     </application>
 
 </manifest>
