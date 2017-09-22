@@ -58,7 +58,7 @@ public class Results extends AppCompatActivity implements SearchView.OnQueryText
 
 
         //floating button
-        FloatingActionButton layoutButton = (FloatingActionButton) findViewById(R.id.fButton);
+        final FloatingActionButton layoutButton = (FloatingActionButton) findViewById(R.id.fButton);
 
         //change the layout and icon when the button is clicked
         layoutButton.setOnClickListener(new View.OnClickListener() {
@@ -66,20 +66,23 @@ public class Results extends AppCompatActivity implements SearchView.OnQueryText
             public void onClick(View v)
             {
                 if(linearLayout){
-                    rView.setLayoutManager(new LinearLayoutManager(Results.this));
-                    linearLayout = false;
-                } else{
+                    rView.setAdapter(new PokeGridAdapter(getApplicationContext(), pokemonList));
                     rView.setLayoutManager(new GridLayoutManager(Results.this, 2));
+                    linearLayout = false;
+                    layoutButton.setImageResource(R.drawable.ic_list);
+
+                } else{
+                    rView.setAdapter(new PokemonAdapter(getApplicationContext(), pokemonList));
+                    rView.setLayoutManager(new LinearLayoutManager(Results.this));
                     linearLayout = true;
+                    layoutButton.setImageResource(R.drawable.ic_dashboard);
                 }
 
             }
         });
-
         pokemonList = pokedex.getPokemon();
 
         pokemonList = filterPokemons(pokemonList, types, HP, AP, DP, random);
-
 
         adapter = new PokemonAdapter(getApplicationContext(), pokemonList);
         rView.setAdapter(adapter);
@@ -90,7 +93,6 @@ public class Results extends AppCompatActivity implements SearchView.OnQueryText
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.options_menu, menu);
-
         MenuItem searchItem = menu.findItem(R.id.action_search);
         return super.onCreateOptionsMenu(menu);
     }
@@ -139,28 +141,30 @@ public class Results extends AppCompatActivity implements SearchView.OnQueryText
         int health = Integer.parseInt(HP);
         int attack = Integer.parseInt(AP);
         int defense = Integer.parseInt(DP);
-        if (random.equals("true")) {
+        if (random.equals("false")) {
+            for (int i = 0; i < pokeList.size(); i++){
+                Pokemon currPokemon = pokeList.get(i);
+                if (typeList == null) {
+                    if (Integer.parseInt(currPokemon.hp) >= health && Integer.parseInt(currPokemon.attack) >= attack && Integer.parseInt(currPokemon.defense) >= defense) {
+                        results.add(currPokemon);
+                    }
+                } else {
+                    for (String type:currPokemon.types) {
+                        for (String listTypes : typeList) {
+                            if (listTypes.equals(type) && Integer.parseInt(currPokemon.hp) >= health && Integer.parseInt(currPokemon.attack) >= attack && Integer.parseInt(currPokemon.defense) >= defense) {
+                                results.add(currPokemon);
+                            }
+                        }
+                    }
+                }
+            }
+            return results;
+        } else {
             Collections.shuffle(pokemonList);
             for (int i = 0; i < 20; i++) {
                 results.add(pokemonList.get(i));
             } return results;
         }
-        for (int i = 0; i < pokeList.size(); i++){
-            Pokemon currPokemon = pokeList.get(i);
-            if (typeList == null) {
-                if (Integer.parseInt(currPokemon.hp) >= health && Integer.parseInt(currPokemon.attack) > attack && Integer.parseInt(currPokemon.defense) >= defense) {
-                    results.add(currPokemon);
-                }
-            } else {
-                for (String type:currPokemon.types) {
-                    for (String listTypes : typeList) {
-                        if (listTypes.equals(type) && Integer.parseInt(currPokemon.hp) >= health && Integer.parseInt(currPokemon.attack) > attack && Integer.parseInt(currPokemon.defense) >= defense) {
-                            results.add(currPokemon);
-                        }
-                    }
-                }
-            }
-        }
-        return results;
     }
+
 }

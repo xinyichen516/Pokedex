@@ -130,14 +130,4 @@ public class AdvancedSearch extends AppCompatActivity {
 
     }
 
-    /* public ArrayList<String> filterTypes(ArrayList<SpinnerCheck> checkmarkList) {
-        ArrayList<String> types = new ArrayList<>();
-        for (int i = 0; i < checkmarkList.size(); i++) {
-            if (checkmarkList.get(i).isSelected()) {
-                types.add(checkmarkList.get(i).getTitle());
-            }
-        } return types;
-    } */
-
-
 }
