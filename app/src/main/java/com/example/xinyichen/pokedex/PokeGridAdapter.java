@@ -2,7 +2,6 @@ package com.example.xinyichen.pokedex;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,15 +15,16 @@ import java.util.ArrayList;
 
 import static android.support.v7.recyclerview.R.styleable.RecyclerView;
 
+
 /**
- * Created by xinyichen on 9/19/17.
+ * Created by kadendippe on 9/21/17.
  */
 
-public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.CustomViewHolder>{
+public class PokeGridAdapter extends RecyclerView.Adapter<PokeGridAdapter.CustomViewHolder>{
     Context context;
     ArrayList<Pokedex.Pokemon> pokemonList = new ArrayList<>();
 
-    public PokemonAdapter(Context context, ArrayList<Pokedex.Pokemon> pokemons) {
+    public PokeGridAdapter(Context context, ArrayList<Pokedex.Pokemon> pokemons) {
         this.context = context;
         this.pokemonList = new ArrayList<Pokedex.Pokemon>(pokemons);
     }
@@ -36,22 +36,18 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.CustomVi
     }
 
     @Override
-    public PokemonAdapter.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pokemon_result, parent, false);
+    public PokeGridAdapter.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.grid_view, parent, false);
         return new CustomViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(CustomViewHolder holder, int position) {
+    public void onBindViewHolder(PokeGridAdapter.CustomViewHolder holder, int position) {
         Pokedex.Pokemon pokemon = pokemonList.get(position);
         holder.pName.setText(pokemon.name);
         Glide.with(holder.pImg.getContext()).load("http://assets.pokemon.com/assets/cms2/img/pokedex/full/" + pokemon.number + ".png" ).into(holder.pImg);
         holder.pNumber.setText("#" + pokemon.number);
-        String types = pokemon.types.get(0);
-        for (int i = 1; i < pokemon.types.size(); i++) {
-            types = types + ", " + pokemon.types.get(i);
-        }
-        holder.type.setText(types);
+        holder.type.setText(pokemon.species);
 
         holder.pImg.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,7 +63,6 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.CustomVi
     public int getItemCount() {
         return pokemonList.size();
     }
-
 
     class CustomViewHolder extends RecyclerView.ViewHolder {
 

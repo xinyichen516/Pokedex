@@ -16,6 +16,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.xinyichen.pokedex.Pokedex.Pokemon;
 
@@ -49,7 +50,7 @@ public class MainActivity extends AppCompatActivity implements android.support.v
         Pokedex pokedex = new Pokedex();
 
         //floating button
-        FloatingActionButton layoutButton = (FloatingActionButton) findViewById(R.id.fButton);
+        final FloatingActionButton layoutButton = (FloatingActionButton) findViewById(R.id.fButton);
 
         //change the layout and icon when the button is clicked
         layoutButton.setOnClickListener(new View.OnClickListener() {
@@ -57,11 +58,16 @@ public class MainActivity extends AppCompatActivity implements android.support.v
             public void onClick(View v)
             {
                 if(linearLayout){
-                    rView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                    linearLayout = false;
-                } else{
+                    rView.setAdapter(new PokeGridAdapter(getApplicationContext(), pokemonList));
                     rView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
+                    linearLayout = false;
+                    layoutButton.setImageResource(R.drawable.ic_list);
+
+                } else{
+                    rView.setAdapter(new PokemonAdapter(getApplicationContext(), pokemonList));
+                    rView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                     linearLayout = true;
+                    layoutButton.setImageResource(R.drawable.ic_dashboard);
                 }
 
             }
@@ -71,7 +77,6 @@ public class MainActivity extends AppCompatActivity implements android.support.v
 
         adapter = new PokemonAdapter(getApplicationContext(), pokemonList);
         rView.setAdapter(adapter);
-
     }
 
     @Override
