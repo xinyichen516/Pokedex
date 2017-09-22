@@ -54,12 +54,10 @@ public class Pokedex {
                 types = new ArrayList<>();
                 try {
 
-                    JSONArray jr = new JSONArray(jsonData.getString("Type"));
-                    JSONObject jb = (JSONObject)jr.getJSONObject(0);
-                    JSONArray st = jb.getJSONArray("Type");
-                    for(int i=0;i<st.length();i++)
+                    JSONArray jr = new JSONArray(jsonData.getString("Type").trim());
+                    for(int i=0;i<jr.length();i++)
                     {
-                        String type = st.getString(i);
+                        String type = jr.getString(i);
                         types.add(type);
                     }
                 }catch(Exception e)

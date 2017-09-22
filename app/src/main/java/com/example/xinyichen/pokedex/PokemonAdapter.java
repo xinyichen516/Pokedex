@@ -45,7 +45,11 @@ public class PokemonAdapter extends RecyclerView.Adapter<PokemonAdapter.CustomVi
         holder.pName.setText(pokemon.name);
         Glide.with(holder.pImg.getContext()).load("http://assets.pokemon.com/assets/cms2/img/pokedex/full/" + pokemon.number + ".png" ).into(holder.pImg);
         holder.pNumber.setText("#" + pokemon.number);
-        holder.type.setText(pokemon.species);
+        String types = pokemon.types.get(0);
+        for (int i = 1; i < pokemon.types.size(); i++) {
+            types = types + ", " + pokemon.types.get(i);
+        }
+        holder.type.setText(types);
     }
 
     @Override

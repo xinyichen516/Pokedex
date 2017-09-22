@@ -8,11 +8,12 @@
         app:actionViewClass="android.support.v7.widget.SearchView"
         app:showAsAction="always">
 
+    </item>
     <item
         android:id="@+id/filterButton"
+        android:clickable="true"
         android:icon="@drawable/filteryellow"
         android:title="@string/filter"
-        android:clickable="true"
         app:actionViewClass="android.support.v7.widget.ImageView"
-        app:showAsAction="ifRoom"/></item>
+        app:showAsAction="always" />
 </menu>

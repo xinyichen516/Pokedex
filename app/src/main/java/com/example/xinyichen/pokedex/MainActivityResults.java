@@ -1,10 +1,9 @@
 package com.example.xinyichen.pokedex;
 
 import android.content.Intent;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.view.MenuItemCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -14,22 +13,20 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.example.xinyichen.pokedex.Pokedex.Pokemon;
 
 import java.util.ArrayList;
 
-import static com.example.xinyichen.pokedex.R.id.fButton;
-import static java.sql.Types.NULL;
 
-
-public class MainActivity extends AppCompatActivity implements android.support.v7.widget.SearchView.OnQueryTextListener{
+public class MainActivityResults extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     //selects whether the layout is linear or not
     boolean linearLayout = true;
     Toolbar toolbar;
     RecyclerView rView;
-    ArrayList<Pokedex.Pokemon> pokemonList;
+    ArrayList<Pokemon> pokemonList;
     PokemonAdapter adapter;
 
     @Override
@@ -48,6 +45,13 @@ public class MainActivity extends AppCompatActivity implements android.support.v
         rView.setLayoutManager(new LinearLayoutManager(this));
         Pokedex pokedex = new Pokedex();
 
+        Intent intent = getIntent();
+
+        String[] types = intent.getStringArrayExtra("types");
+        String HP = intent.getStringExtra("HP");
+        String AP = intent.getStringExtra("AP");
+        String DP = intent.getStringExtra("DP");
+
         //floating button
         FloatingActionButton layoutButton = (FloatingActionButton) findViewById(R.id.fButton);
 
@@ -57,10 +61,10 @@ public class MainActivity extends AppCompatActivity implements android.support.v
             public void onClick(View v)
             {
                 if(linearLayout){
-                    rView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                    rView.setLayoutManager(new LinearLayoutManager(MainActivityResults.this));
                     linearLayout = false;
                 } else{
-                    rView.setLayoutManager(new GridLayoutManager(MainActivity.this, 2));
+                    rView.setLayoutManager(new GridLayoutManager(MainActivityResults.this, 2));
                     linearLayout = true;
                 }
 
@@ -68,6 +72,10 @@ public class MainActivity extends AppCompatActivity implements android.support.v
         });
 
         pokemonList = pokedex.getPokemon();
+        ArrayList<Pokemon> filteredPokemonList = filterPokemons(pokemonList, types, HP, AP, DP);
+
+        pokemonList = filteredPokemonList;
+
 
         adapter = new PokemonAdapter(getApplicationContext(), pokemonList);
         rView.setAdapter(adapter);
@@ -80,10 +88,6 @@ public class MainActivity extends AppCompatActivity implements android.support.v
         inflater.inflate(R.menu.options_menu, menu);
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
-        /* SearchView searchView = (SearchView) MenuItemCompat.getActionView(searchItem);
-        if (searchView != null) {
-            searchView.setOnQueryTextListener(this);
-        } */
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -124,5 +128,20 @@ public class MainActivity extends AppCompatActivity implements android.support.v
                 return super.onOptionsItemSelected(item);
 
         }
+    }
+
+    public ArrayList<Pokemon> filterPokemons (ArrayList<Pokemon> pokeList, String[] types, String HP, String AP, String DP) {
+        ArrayList<Pokemon> results = new ArrayList<>();
+        for (int i = 0; i < pokemonList.size(); i++){
+            Pokemon currPokemon = pokemonList.get(i);
+            for (String type:currPokemon.types) {
+                for (int j = 0; j < types.length; j++) {
+                    if (type.equals(types[j]) && HP.equals(currPokemon.hp) && AP.equals(currPokemon.attack) && DP.equals(currPokemon.defense)) {
+                        results.add(currPokemon);
+                    }
+                }
+            }
+        }
+        return results;
     }
 }

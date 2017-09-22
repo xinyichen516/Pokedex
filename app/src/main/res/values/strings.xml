@@ -7,4 +7,9 @@
     <string name="Pokedex">Pokedex</string>
     <string name="filter" />
     <string name="search">Search</string>
+    <string name="_0_points">0 Points</string>
+    <string name="minimum_attack_points">Minimum Attack Points</string>
+    <string name="minimum_defense_points">Minimum Defense Points</string>
+    <string name="minimum_health_points">Minimum Health Points</string>
+    <string name="pokemon_type">Pokemon Type</string>
 </resources>
