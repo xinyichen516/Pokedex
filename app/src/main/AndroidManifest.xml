@@ -20,7 +20,8 @@
         </activity>
         <activity android:name=".AdvancedSearch" />
         <activity android:name=".MainActivity" />
-        <activity android:name=".Results"></activity>
+        <activity android:name=".Results" />
+        <activity android:name=".Profile"></activity>
     </application>
 
 </manifest>
